@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Sistema de Gestión de Stock";
+    ViewData["SubTitle"] = "Panel de acceso rápido a los módulos principales";
+}
+
+<div class="row g-4 mt-1">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-primary"><i class="bi bi-box-seam me-2"></i>Productos</h5>
+                <p class="card-text text-muted">Administración del catálogo de productos, precios, unidades de medida y stock mínimo.</p>
+                <a asp-controller="Producto" asp-action="Index" class="btn btn-outline-primary btn-sm">Ir a Productos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-primary"><i class="bi bi-tags me-2"></i>Categorías</h5>
+                <p class="card-text text-muted">Clasificación de productos por rubros y familias comerciales.</p>
+                <a asp-controller="Categoria" asp-action="Index" class="btn btn-outline-primary btn-sm">Ir a Categorías</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-primary"><i class="bi bi-building me-2"></i>Depósitos</h5>
+                <p class="card-text text-muted">Gestión de almacenes físicos, naves logísticas y ubicaciones de mercadería.</p>
+                <a asp-controller="Deposito" asp-action="Index" class="btn btn-outline-primary btn-sm">Ir a Depósitos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-primary"><i class="bi bi-shop me-2"></i>Proveedores</h5>
+                <p class="card-text text-muted">Registro de proveedores de mercadería, datos fiscales y contactos comerciales.</p>
+                <a asp-controller="Proveedor" asp-action="Index" class="btn btn-outline-primary btn-sm">Ir a Proveedores</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-primary"><i class="bi bi-people me-2"></i>Clientes</h5>
+                <p class="card-text text-muted">Administración de la cartera de clientes, destinatarios de despachos y ventas.</p>
+                <a asp-controller="Cliente" asp-action="Index" class="btn btn-outline-primary btn-sm">Ir a Clientes</a>
+            </div>
+        </div>
+    </div>
+</div>

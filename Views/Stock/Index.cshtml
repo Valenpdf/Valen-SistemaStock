@@ -1,0 +1,49 @@
+@model IEnumerable<Valen_SistemaStock.Models.ViewModels.StockViewModel>
+@{
+    ViewData["Title"] = "Stock de Productos";
+    ViewData["SubTitle"] = "Consulta de Stock por Depósito";
+}
+
+<form method="get" class="row mb-3">
+    <div class="col-auto">
+        <input type="text" name="buscar" class="form-control" placeholder="Buscar producto..." />
+    </div>
+    <div class="col-auto">
+        <select name="idDeposito" class="form-select" asp-items="ViewBag.Depositos">
+            <option value="">Todos los depósitos</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+    </div>
+</form>
+
+@foreach (var producto in Model)
+{
+    <h4>@producto.Nombre</h4>
+
+    <p>
+        Stock total: <strong>@producto.StockTotal</strong>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Depósito</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stock in producto.Stocks)
+            {
+                if (stock.Cantidad != 0)
+                {
+                    <tr>
+                        <td>@stock.DepositoNombre</td>
+                        <td>@stock.Cantidad</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

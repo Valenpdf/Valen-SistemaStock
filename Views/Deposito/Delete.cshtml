@@ -1,0 +1,26 @@
+@model Valen_SistemaStock.Models.ViewModels.DepositoViewModel
+@{
+    ViewData["Title"] = "Eliminar Depósito";
+    ViewData["SubTitle"] = "¿Está seguro de que desea eliminar este depósito?";
+}
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Nombre)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Nombre)</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Ubicacion)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Ubicacion)</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Activo)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Activo)</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

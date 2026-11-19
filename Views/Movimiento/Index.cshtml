@@ -1,0 +1,104 @@
+@model List<Valen_SistemaStock.Models.ViewModels.Movimiento.MovimientoViewModel>
+@using Valen_SistemaStock.Models.Enum
+@{
+    ViewData["Title"] = "Stock";
+    ViewData["SubTitle"] = "Listado de Movimientos";
+}
+
+@if (TempData["Ok"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["Ok"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="get" class="row mb-3">
+    <div class="col-auto">
+        <select name="idProducto" class="form-select" asp-items="ViewBag.Productos">
+            <option value="">Todos los Productos</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <select name="tipo" class="form-select" asp-items="Html.GetEnumSelectList<TipoMovimiento>()">
+            <option value="">Todos los Movimientos</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+    </div>
+</form>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Listado de Movimientos</h2>
+    <div class="btn-group">
+        <a asp-action="Entrada" class="btn btn-success">
+            <i class="bi bi-box-arrow-in-down"></i> Nueva Entrada
+        </a>
+        <a asp-action="Salida" class="btn btn-danger">
+            <i class="bi bi-box-arrow-up"></i> Nueva Salida
+        </a>
+        <a asp-action="Transferencia" class="btn btn-primary">
+            <i class="bi bi-arrow-left-right"></i> Nueva Transferencia
+        </a>
+    </div>
+</div>
+
+@if (Model.Count == 200)
+{
+    <div class="alert alert-info">
+        Mostrando los últimos 200 movimientos. Usá los filtros para acotar la búsqueda.
+    </div>
+}
+
+<table id="miTabla" class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Producto</th>
+            <th>Depósito origen</th>
+            <th>Depósito destino</th>
+            <th class="text-end">Cantidad</th>
+            <th>Observaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>
+                    @{
+                        var (badgeClass, texto) = item.Tipo switch
+                        {
+                            TipoMovimiento.TransferenciaSalida => ("bg-warning text-dark", "Transf. salida"),
+                            TipoMovimiento.TransferenciaEntrada => ("bg-success", "Transf. entrada"),
+                            TipoMovimiento.Entrada => ("bg-primary", "Ingreso"),
+                            TipoMovimiento.Salida => ("bg-danger", "Egreso"),
+                            _ => ("bg-secondary", item.Tipo.ToString())
+                        };
+                    }
+                    <span class="badge @badgeClass">@texto</span>
+                </td>
+                <td>@item.ProductoNombre</td>
+                <td>@(item.DepositoOrigenNombre ?? "-")</td>
+                <td>@(item.DepositoDestinoNombre ?? "-")</td>
+                <td class="text-end">@item.Cantidad</td>
+                <td>@item.Observaciones</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">No hay movimientos.</p>
+}
